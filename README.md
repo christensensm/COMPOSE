@@ -5,5 +5,7 @@ Crispr-OMics for PhenOtypic ScrEens (COMPOSE) is a method developed for analyzin
 INSTALLATION
 
 install.packages("devtools")
+
 devtools::install_github("mangothecat/remotes")
+
 remotes::install_github("christensensm/COMPOSE", dependencies=TRUE)
