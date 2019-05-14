@@ -1,0 +1,40 @@
+Package: COMPOSE
+Type: Package
+Title: Calculation and Visualization of Phenotypic CRISPR Screens
+Version: 0.1.0
+Author: Stephen M. Christensen <smchrist189@gmail.com> [aut, cre]
+Maintainer: Stephen M. Christensen <smchrist189@gmail.com>
+Description: This package allows the user to take data from a phenotypic CRISPR screen and perform various QC analysis followed by a basic scoring method for guide RNAs. Downstream analyses can then be performed using gene-level data for pathway analyses, etc.
+License: Undetermined
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests:
+    GSA,
+    org.Hs.eg.db,
+    UpSetR
+Imports: 
+    AnnotationDbi (>= 1.44.0),
+    BiocParallel,
+    clusterProfiler (>= 3.10.1),
+    DESeq2 (>= 1.22.1),
+    devtools (>= 2.0.1), 
+    dplyr (>= 0.7.8),
+    edgeR (>= 3.24.3),
+    enrichplot (>= 1.2.0),
+    fgsea (>= 1.8.0),
+    gage (>= 2.32.0), 
+    ggbiplot (>= 0.55),
+    ggdendro (>= 0.1-20),
+    ggplot2 (>= 3.1.0),
+    gplots (>= 3.0.1),
+    gridExtra (>= 2.3),
+    limma (>= 3.38.3),
+    parallel,
+    prodlim (>= 2018.04.18),
+    pathview (>= 1.22.0),
+    RColorBrewer (>= 1.1-2),
+    ReactomePA (>= 1.26.0),
+    reshape2 (>= 1.4.3),
+    RobustRankAggreg (>= 1.1),
+    viridis (>= 0.5.1)
