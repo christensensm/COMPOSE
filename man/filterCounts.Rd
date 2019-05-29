@@ -21,4 +21,5 @@ Filtration and visualization of counts
 y <- matrix(rnorm(100*9, mean = 10, sd = 1),100,9)
 y[seq(1,100,10),] <- y[seq(1,100,10),]/20
 counts.filtered <- filterCounts(y, thresh = 1, minsample.ids = 3)
+...
 }
