@@ -4,37 +4,17 @@ Crispr-OMics for PhenOtypic ScrEens (COMPOSE) is a method developed for analyzin
 
 ### Installation
 
-From a fresh R installation:
+COMPOSE was created using R v3.5.1 and some of the installations may not follow the same coding. Recent updates altered the way Bioconductor packages were installed for R.
+Install dependencies and the package via the following:
 
 ```
-install.packages("devtools")
-devtools::install_github("mangothecat/remotes")
-remotes::install_github("christensensm/COMPOSE", dependencies=TRUE)
+install.packages("BiocManager")
+BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR'))
+library(devtools)
+install_github("vqv/ggbiplot")
+install_github("christensensm/COMPOSE")
 ```
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Acknowledgments
 
