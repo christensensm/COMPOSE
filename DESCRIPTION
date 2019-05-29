@@ -33,6 +33,7 @@ Imports:
     parallel,
     prodlim (>= 2018.04.18),
     pathview (>= 1.22.0),
+    qusage (>= 2.16.1),
     RColorBrewer (>= 1.1-2),
     ReactomePA (>= 1.26.0),
     reshape2 (>= 1.4.3),
