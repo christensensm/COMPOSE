@@ -93,6 +93,11 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         # Determine pearson correlations, reorder by hierarchical clustering, and plot
         datcor <- stats::cor(countsTable)
         # Plot all four graphs
+        print(p1)
+        print(p2)
+        print(p3)
+        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
         if (save) {
           grDevices::pdf("PCA_PC1vPC2_normalized_counts.pdf", width = 8, height = 8)
           print(p1)
@@ -104,13 +109,10 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           print(p3)
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
-          print(corheat)
+          gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
           grDevices::dev.off()
         }
-        print(p1)
-        print(p2)
-        print(p3)
-        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100), margins=c(10,10), srtCol = 45)
     }
     if (!is.null(identifier2) & is.null(identifier3)) {
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
@@ -155,13 +157,15 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           print(p3)
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
-          print(corheat)
+          gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
-        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100), margins=c(10,10), srtCol = 45)
+        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
     }
     if (is.null(identifier2) & !is.null(identifier3)) {
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
@@ -204,13 +208,15 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           print(p3)
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
-          print(corheat)
+          gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
-        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100), margins=c(10,10), srtCol = 45)
+        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
     }
     if (is.null(identifier2) & is.null(identifier3)) {
         # Plot PC1 vs PC2
@@ -248,13 +254,15 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           print(p3)
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
-          print(corheat)
+          gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
-        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100), margins=c(10,10), srtCol = 45)
+        gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
+                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
     }
 }
 

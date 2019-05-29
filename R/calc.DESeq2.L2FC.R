@@ -59,29 +59,26 @@ calc.DESeq2.L2FC <- function(countsTable, metadata, meta.idnum = NULL, include.b
     for (j in 1:ncol(contrast.cond)) {
       res <- DESeq2::results(dds, contrast = c("condition", as.character(contrast.cond[2, j]),
                                                as.character(contrast.cond[1, j])))
-      if (save){
-        resOrdered <- res[order(res$log2FoldChange), ]
-        utils::write.csv(as.data.frame(resOrdered),
-                         file = paste0(unique(design.table[, 1])[i], "_", DESeq2::resultsNames(dds)[2], "_results.csv"))
-      }
       resOrdered <- as.data.frame(res[order(rownames(res)), ])
       L2FC[, current.col] <- resOrdered$log2FoldChange
+      L2FC[, current.col] <- scale(L2FC[,current.col])
       padj[, current.col] <- resOrdered$padj
       padj[, current.col][is.na(resOrdered$padj)] = 1
       lfcSE[, current.col] <- resOrdered$lfcSE
       naming <- paste0(unique(design.table[, 1])[i], "_",
                        as.character(contrast.cond[2, j]), "_vs_",
                        as.character(contrast.cond[1,j]))
+      if (save){
+        reswrite <- resOrdered[order(resOrdered$log2FoldChange), ]
+        utils::write.csv(as.data.frame(reswrite),
+                         file = paste0(naming, "_results.csv"))
+      }
       colnames(L2FC)[current.col] <- colnames(padj)[current.col] <- colnames(lfcSE)[current.col] <- naming
       current.col <- current.col + 1
     }
   }
   graphics::par(mfrow = c(1, 1))
   rownames(L2FC) <- rownames(padj) <- rownames(lfcSE) <- rownames(resOrdered)
-  #Scale log2 fold-changes
-  for(i in 1:ncol(L2FC)){
-    L2FC[,i] <- scale(L2FC[,i])
-  }
 
   results <- list(countsTable, L2FC, padj, lfcSE)
   names(results) <- c('counts','L2FC','padj','lfcSE')

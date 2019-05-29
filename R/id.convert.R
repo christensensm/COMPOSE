@@ -16,10 +16,10 @@
 #' @importFrom AnnotationDbi mapIds
 #' @importFrom stats na.omit
 
-id.convert <- function(CSS, genome.db = Org.Hs.eg.db, gene.ids = "SYMBOL"){
+id.convert <- function(CSS, genome.db = Org.Hs.eg.db, gene.ids = "ENTREZID", keytype = "SYMBOL"){
   CSS.new <- data.frame(CSS)
   CSS.new$NEWID = AnnotationDbi::mapIds(genome.db, keys = rownames(CSS.new),
-                                        column = gene.ids, keytype = "SYMBOL", multiVals = "first")
+                                        column = gene.ids, keytype = keytype, multiVals = "first")
   #Remove any symbols that return NA after conversion
   CSS.new <- stats::na.omit(CSS.new)
   rownames(CSS.new) <- CSS.new$NEWID

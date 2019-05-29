@@ -40,9 +40,13 @@ guides2genes <- function(L2FC, neg.controls, essential.genes, filename = NULL, s
   }
   rownames(genescore) <- genescore[,1]
   genescore <- genescore[,-1]
+  if(sum(is.na(genescore))>0){
+    genescore <- na.omit(genescore)
+    cat("Eliminating rows containing NAs", "\n")
+  }
   # Save table
   if (save.tables) {
-    utils::write.csv(genescore, file = paste0(filename, "_", format(Sys.time(), "%Y%b%d"), "_Brunello_CRISPR_GENE_SCORE.csv"), row.names = F)
+    utils::write.csv(genescore, file = paste0('CRISPR_GENE_SCORE', format(Sys.time(), "%Y%b%d"), ".csv"))
   }
   # Print and/or save plots of negative controls, essential gene dropout and CSS correction, and PCA/correlation
   if (save.plots | print.plots) {

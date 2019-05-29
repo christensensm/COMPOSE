@@ -43,7 +43,9 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::emapplot(x))
-                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test))
+                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
+                        scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
+                                              limits = c(-max(abs(test)),max(abs(test)))))
             }
             if (!is.null(combine.by)) {
                 test <- list()
@@ -75,7 +77,9 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::emapplot(x))
-                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test))
+                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
+                        scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
+                                              limits = c(-max(abs(test)),max(abs(test)))))
             }
         }
     }

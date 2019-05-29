@@ -13,15 +13,14 @@
 
 extract.genefromguide <- function(data, neg.controls, split = "_") {
     # Pull out gene names from guide ids and add as a column to data
-    data <- data[order(rownames(data)), ]
     gRNAnames <- rownames(data)
     gRNA.neg <- gRNAnames[gRNAnames %in% neg.controls]
     gRNA.noneg <- gRNAnames[!gRNAnames %in% neg.controls]
     gRNAgenes <- sapply(as.character(gRNA.noneg), function(x) strsplit(x, split = split)[[1]][1])
     gRNAgenes <- c(gRNAgenes, gRNA.neg)
     names(gRNAgenes) = NULL
-    gRNAgenes = gRNAgenes[order(gRNAgenes)]
-    new.data <- data.frame(data)
+    new.data <- data.frame(data[rownames(data) %in% gRNA.noneg,])
+    new.data <- rbind(new.data, data[rownames(data) %in% gRNA.neg,])
     new.data$gene.name <- gRNAgenes
     return(new.data)
 }
