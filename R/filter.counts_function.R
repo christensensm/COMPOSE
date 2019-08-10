@@ -4,6 +4,7 @@
 #'
 #' @param counts input matrix containing normalized gRNA counts with gRNA ids as row names
 #' @param thresh numerical cutoff for low counts
+#' @param minsample.ids minimum number of samples for which counts must be present per gene
 #' @return new matrix of filtered counts
 #' @export
 #' @examples

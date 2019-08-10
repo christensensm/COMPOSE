@@ -5,8 +5,10 @@
 #' @param countsTable input matrix containing normalized gRNA counts with gRNA ids as row names
 #' @param metadata input dataframe containing sample names and other identifiers or data
 #' @param identifier1 string identifying column name of metadata with which to adjust color in PCA plot
-#' @param identifier2 string identifying column name of metadata with which to adjust alpha in PCA plot
+#' @param identifier2 string identifying column name of metadata with which to adjust size in PCA plot
 #' @param identifier3 string identifying column name of metadata with which to adjust shape in PCA plot
+#' @param batch logical - correct for batch effects (requires a batch.id input)
+#' @param batch.id numerical - column of metadata that identifies the batch effect to remove
 #' @param save logical - do you want to save the violin plot to pdf
 #' @return ggplot object of the violin plot
 #' @seealso \code{\link{ggbiplot}} which this function uses to plot PCAs
@@ -23,7 +25,7 @@
 #' @importFrom stats prcomp cor as.dist hclust as.dendrogram
 #' @importFrom grDevices hcl pdf dev.off
 #' @importFrom ggbiplot ggbiplot
-#' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual scale_alpha_manual ggtitle theme theme_bw geom_tile aes guide_legend element_text element_blank
+#' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual scale_size_manual ggtitle theme theme_bw geom_tile aes guide_legend element_text element_blank
 #' @importFrom reshape2 melt
 #' @importFrom edgeR cpm
 #' @importFrom ggdendro ggdendrogram
@@ -48,7 +50,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
     identifier1.col = which(colnames(metadata) == identifier1)
     identifier2.col = which(colnames(metadata) == identifier2)
     identifier3.col = which(colnames(metadata) == identifier3)
-    # set colors and shapes identifier1 = color identifier2 = alpha identifier3 = shape
+    # set colors and shapes identifier1 = color identifier2 = size identifier3 = shape
     gg_color_hue <- function(n) {
         hues = seq(15, 375, length = n + 1)
         grDevices::hcl(h = hues, l = 65, c = 100)[1:n]
@@ -61,31 +63,31 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
     # Determine number of identifiers (must be at least one identifier)
     if (!is.null(identifier2) & !is.null(identifier3)) {
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
-        alpha.id <- factor(metadata[, identifier2.col], levels = unique(metadata[, identifier2.col]))
+        size.id <- factor(metadata[, identifier2.col], levels = unique(metadata[, identifier2.col]))
         shape.id <- factor(metadata[, identifier3.col])
         # Plot PC1 vs PC2
-        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id, shape = shape.id)) +
+        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id, shape = shape.id)) +
+        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC2 vs PC3
-        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id, shape = shape.id)) +
+        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC2 vs PC3") +
           ggplot2::theme_bw() +
@@ -115,31 +117,29 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         }
     }
     if (!is.null(identifier2) & is.null(identifier3)) {
-        fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
-        alpha.id <- factor(metadata[, identifier2.col], levels = unique(metadata[, identifier2.col]))
         # Plot PC1 vs PC2
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
-        alpha.id <- factor(metadata[, identifier2.col], levels = unique(metadata[, identifier2.col]))
-        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id)) +
+        size.id <- factor(metadata[, identifier2.col], levels = unique(metadata[, identifier2.col]))
+        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id)) +
+        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, alpha = alpha.id)) +
+        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_alpha_manual(name = identifier2, values = seq(0, 1, 1/length(levels(alpha.id)))[-1], labels = levels(alpha.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
           ggplot2::ggtitle("PC2 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
@@ -171,24 +171,24 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
         shape.id <- factor(metadata[, identifier3.col])
         # Plot PC1 vs PC2
-        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, shape = shape.id)) +
+        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, shape = shape.id)) +
+        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, ggplot2::aes(fill = fill.id, shape = shape.id)) +
+        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
+          ggplot2::geom_point(ggplot2::aes(fill = fill.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC2 vs PC3") +
@@ -220,22 +220,22 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
     }
     if (is.null(identifier2) & is.null(identifier3)) {
         # Plot PC1 vs PC2
-        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2), alpha = 0) +
-          ggplot2::geom_point(size = 4, shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
+        p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
+          ggplot2::geom_point(shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = unique(as.factor(metadata[, identifier1.col])), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC1 vs PC3
-        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
+        p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
+          ggplot2::geom_point(shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = unique(as.factor(metadata[, identifier1.col])), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
         # Plot PC2 vs PC3
-        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3), alpha = 0) +
-          ggplot2::geom_point(size = 4, shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
+        p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
+          ggplot2::geom_point(shape = 21, ggplot2::aes(fill = as.factor(metadata[, identifier1.col]))) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = unique(as.factor(metadata[, identifier1.col])), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
           ggplot2::ggtitle("PC2 vs PC3") +
           ggplot2::theme_bw() +

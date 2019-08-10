@@ -6,6 +6,7 @@
 #' @param metadata input dataframe containing sample names and other identifiers or data
 #' @param identifier1 string identifying column name of metadata with which to adjust color in violin plot
 #' @param identifier2 string identifying column name of metadata with which to adjust alpha in violin plot
+#' @param cpm logical - do you want to normalize the counts by sequencing depth
 #' @param transform logical - do you want to log10 transform the counts
 #' @param save logical - do you want to save the violin plot to pdf
 #' @return ggplot object of the violin plot
@@ -24,12 +25,13 @@
 
 
 # Create function to plot violin plot visualizing read distribution
-count.violin <- function(countsTable, metadata, identifier1 = "sample", identifier2 = NULL, transform = FALSE, save = F) {
+count.violin <- function(countsTable, metadata, identifier1 = "sample", identifier2 = NULL, transform = FALSE, cpm = FALSE, save = F) {
     if (ncol(countsTable) != nrow(metadata))
         stop("Differing number of samples in count matrix and metadata table")
     if (!all(colnames(countsTable) == metadata[, 1]))
         stop("Please make sure your count matrix column names are the same as your metadata sample IDs (first column)")
-    countsTable <- edgeR::cpm(countsTable)
+    if(cpm)
+      countsTable <- edgeR::cpm(countsTable)
     # create sample id vector
     sample.ids <- colnames(countsTable)
     for (i in 1:length(sample.ids)) {
@@ -79,7 +81,8 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::geom_boxplot(width = 0.1, outlier.shape = NA) +
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
             legend.position = "none", axis.title.x = ggplot2::element_blank(),
-            plot.margin = ggplot2::margin(2,2,10,80))
+            plot.margin = ggplot2::margin(2,2,10,80)) +
+          ggplot2::coord_fixed(ratio = 20/(2*ncol(countsTable)))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))
@@ -103,7 +106,8 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::ggtitle("Read Distribution per Sample") +
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                          legend.position = "none", axis.title.x = ggplot2::element_blank(),
-                         plot.margin = ggplot2::margin(2, 2, 10, 80))
+                         plot.margin = ggplot2::margin(2, 2, 10, 80)) +
+          ggplot2::coord_fixed(ratio = 20/(2*ncol(countsTable)))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))

@@ -4,6 +4,7 @@
 #'
 #' @param results a calc.DESeq2.L2FC object
 #' @param sig.cutoff adjusted p-value cutoff for sgRNA fold-changes
+#' @param top numerical - number of top guides to label (by p-value)
 #' @param print logical - do you want to print the  plot to plots
 #' @param save logical - do you want to save the  plot to pdf
 #' @seealso \code{\link{ggplot}, \link{ggrepel}} which this function uses to plot

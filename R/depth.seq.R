@@ -31,6 +31,7 @@ calc.seq.depth <- function(countsTable, metadata, sample.id = 'SampleID', print 
     ggplot2::theme_bw() +
     ggplot2::theme(axis.text.x=ggplot2::element_text(angle=45,hjust=1),
                    legend.position = 'none', axis.title.x = ggplot2::element_blank()) +
+    ggplot2::coord_fixed(ratio = 20/(2*ncol(countsTable))) +
     ggplot2::ggtitle("Sequencing depth per sample")
   if(print) print(p)
   if(save){

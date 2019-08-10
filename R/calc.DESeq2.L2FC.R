@@ -6,14 +6,12 @@
 #' @param metadata input dataframe containing sample names and other identifiers or data
 #' @param meta.idnum vector containing the column numbers in metadata that represent (1) Cell line, (2) replicates, and (3) condition
 #' @param include.batch logical to include replicates in the model
-#' @param plot.volcano logical - do you want to show the volcano plot for each cell type
 #' @param p.cutoff numeric - specified p-value cut-off
-#' @param plot.MA logical - do you want to show the MA plot for each cell type
 #' @param save logical - do you want to save the fold-change table to csv
 #' @return matrix containing Log2 fold-changes for each comparison
 #' @export
 #' @examples
-#' L2FC <- calc.DESeq2.L2FC(countsTable, design.table, plot.MA = T, save = T)
+#' L2FC <- calc.DESeq2.L2FC(countsTable, design.table, save = T)
 #' ...
 #' @importFrom utils combn write.csv
 #' @import BiocParallel
@@ -22,8 +20,8 @@
 #' @importFrom stats density
 
 # Create function to calculate Log2 fold change for each 'sample' between all 'condition' factors
-calc.DESeq2.L2FC <- function(countsTable, metadata, meta.idnum = NULL, include.batch = F, plot.volcano = F, p.cutoff = 0.05,
-    plot.MA = F, save = F) {
+calc.DESeq2.L2FC <- function(countsTable, metadata, meta.idnum = NULL, include.batch = F, p.cutoff = 0.05,
+    save = F, verbose = T) {
     if (ncol(countsTable) != nrow(metadata))
         stop("Differing number of samples in count matrix and metadata table")
     if (!all(colnames(countsTable) == metadata[, 1]))
@@ -42,7 +40,8 @@ calc.DESeq2.L2FC <- function(countsTable, metadata, meta.idnum = NULL, include.b
   graphics::par(mfrow = c(2, 2))
   for (i in 1:length(unique(design.table[, 1]))) {
     # go through each cell sample
-    print(paste0("Calculating DESeq2 fold-changes for ", unique(design.table[, 1])[i]))
+    if(verbose)
+      print(paste0("Calculating DESeq2 fold-changes for ", unique(design.table[, 1])[i]))
     # create counts/design.table table of cell sample i
     temp.counts <- countsTable[, which(design.table[, 1] == unique(design.table[, 1])[i])]
     temp.design <- design.table[which(design.table[, 1] == unique(design.table[, 1])[i]), ]

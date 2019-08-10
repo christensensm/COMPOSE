@@ -5,7 +5,6 @@
 #' @param L2FC input matrix containing log2 fold-change data with gRNA ids as row names
 #' @param neg.controls input vector containing gRNA ids for negative controls
 #' @param essential.genes input vector containing gRNA ids for essential genes
-#' @param filename string to use for naming output files
 #' @param save.plots save the plots to pdf (logical, default = FALSE)
 #' @param print.plots print the plots (logical, default = TRUE)
 #' @param save.tables save the CS and CSS tables (logical, default = FALSE)
@@ -15,7 +14,7 @@
 #' @export
 #' @examples
 #' test.array <- create.CSS(L2FC.filtered, neg.controls = neg.controls,
-#' essential.genes = essential.genes, filename = 'TEST')
+#' essential.genes = essential.genes)
 #' ...
 #' @importFrom stats aggregate prcomp cor
 #' @importFrom utils write.csv
@@ -26,7 +25,7 @@
 
 # Function to: 1) plot L2FC for negative controls and essential genes 2) calculate CRISPR score and screen score and plot
 # for essential genes 3) plot PCA and correlation for CSS values 4) return array with L2FC, CS, CSS and FDR tables
-guides2genes <- function(L2FC, neg.controls, essential.genes, filename = NULL, save.plots = FALSE,
+guides2genes <- function(L2FC, neg.controls, essential.genes, save.plots = FALSE,
                        print.plots = TRUE, save.tables = FALSE, split = "_") {
   #Identify genes for each guide
   L2FC <- extract.genefromguide(L2FC, neg.controls = neg.controls, split = split)
