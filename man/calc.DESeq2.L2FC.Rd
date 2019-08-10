@@ -5,8 +5,7 @@
 \title{Fold-change calculation for CRISPR screen}
 \usage{
 calc.DESeq2.L2FC(countsTable, metadata, meta.idnum = NULL,
-  include.batch = F, plot.volcano = F, p.cutoff = 0.05,
-  plot.MA = F, save = F)
+  include.batch = F, p.cutoff = 0.05, save = F, verbose = T)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}
@@ -17,11 +16,7 @@ calc.DESeq2.L2FC(countsTable, metadata, meta.idnum = NULL,
 
 \item{include.batch}{logical to include replicates in the model}
 
-\item{plot.volcano}{logical - do you want to show the volcano plot for each cell type}
-
 \item{p.cutoff}{numeric - specified p-value cut-off}
-
-\item{plot.MA}{logical - do you want to show the MA plot for each cell type}
 
 \item{save}{logical - do you want to save the fold-change table to csv}
 }
@@ -32,6 +27,6 @@ matrix containing Log2 fold-changes for each comparison
 Calculates log2 fold-changes between samples of a specified variable using input of a count matrix and metadata dataframe
 }
 \examples{
-L2FC <- calc.DESeq2.L2FC(countsTable, design.table, plot.MA = T, save = T)
+L2FC <- calc.DESeq2.L2FC(countsTable, design.table, save = T)
 ...
 }

@@ -10,6 +10,8 @@ filterCounts(counts, thresh = 1, minsample.ids = 2)
 \item{counts}{input matrix containing normalized gRNA counts with gRNA ids as row names}
 
 \item{thresh}{numerical cutoff for low counts}
+
+\item{minsample.ids}{minimum number of samples for which counts must be present per gene}
 }
 \value{
 new matrix of filtered counts

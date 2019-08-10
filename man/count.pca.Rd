@@ -15,9 +15,13 @@ count.pca(countsTable, metadata, identifier1 = NULL,
 
 \item{identifier1}{string identifying column name of metadata with which to adjust color in PCA plot}
 
-\item{identifier2}{string identifying column name of metadata with which to adjust alpha in PCA plot}
+\item{identifier2}{string identifying column name of metadata with which to adjust size in PCA plot}
 
 \item{identifier3}{string identifying column name of metadata with which to adjust shape in PCA plot}
+
+\item{batch}{logical - correct for batch effects (requires a batch.id input)}
+
+\item{batch.id}{numerical - column of metadata that identifies the batch effect to remove}
 
 \item{save}{logical - do you want to save the violin plot to pdf}
 }

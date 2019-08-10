@@ -4,9 +4,8 @@
 \alias{guides2genes}
 \title{CRISPR Screen Scoring}
 \usage{
-guides2genes(L2FC, neg.controls, essential.genes, filename = NULL,
-  save.plots = FALSE, print.plots = TRUE, save.tables = FALSE,
-  split = "_")
+guides2genes(L2FC, neg.controls, essential.genes, save.plots = FALSE,
+  print.plots = TRUE, save.tables = FALSE, split = "_")
 }
 \arguments{
 \item{L2FC}{input matrix containing log2 fold-change data with gRNA ids as row names}
@@ -14,8 +13,6 @@ guides2genes(L2FC, neg.controls, essential.genes, filename = NULL,
 \item{neg.controls}{input vector containing gRNA ids for negative controls}
 
 \item{essential.genes}{input vector containing gRNA ids for essential genes}
-
-\item{filename}{string to use for naming output files}
 
 \item{save.plots}{save the plots to pdf (logical, default = FALSE)}
 
@@ -33,7 +30,7 @@ Creates array containing log2 fold-change input, CRISPR scores, and CRISPR scree
 }
 \examples{
 test.array <- create.CSS(L2FC.filtered, neg.controls = neg.controls,
-essential.genes = essential.genes, filename = 'TEST')
+essential.genes = essential.genes)
 ...
 }
 \seealso{

@@ -5,7 +5,7 @@
 \title{Count Distribution}
 \usage{
 count.violin(countsTable, metadata, identifier1 = "sample",
-  identifier2 = NULL, transform = FALSE, save = F)
+  identifier2 = NULL, transform = FALSE, cpm = FALSE, save = F)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}
@@ -17,6 +17,8 @@ count.violin(countsTable, metadata, identifier1 = "sample",
 \item{identifier2}{string identifying column name of metadata with which to adjust alpha in violin plot}
 
 \item{transform}{logical - do you want to log10 transform the counts}
+
+\item{cpm}{logical - do you want to normalize the counts by sequencing depth}
 
 \item{save}{logical - do you want to save the violin plot to pdf}
 }

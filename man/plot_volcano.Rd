@@ -15,6 +15,8 @@ plot_volcano(results, print = T, save = F, sig.cutoff = 0.05,
 \item{save}{logical - do you want to save the  plot to pdf}
 
 \item{sig.cutoff}{adjusted p-value cutoff for sgRNA fold-changes}
+
+\item{top}{numerical - number of top guides to label (by p-value)}
 }
 \description{
 Visualization of fold-changes and p-values for sgRNAs
