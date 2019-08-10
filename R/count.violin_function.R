@@ -82,7 +82,6 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
             legend.position = "none", axis.title.x = ggplot2::element_blank(),
             plot.margin = ggplot2::margin(2,2,10,80)) +
-          ggplot2::coord_fixed(ratio = 20/(2*ncol(countsTable)))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))
@@ -107,7 +106,6 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                          legend.position = "none", axis.title.x = ggplot2::element_blank(),
                          plot.margin = ggplot2::margin(2, 2, 10, 80)) +
-          ggplot2::coord_fixed(ratio = 20/(2*ncol(countsTable)))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))
