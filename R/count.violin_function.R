@@ -81,7 +81,7 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::geom_boxplot(width = 0.1, outlier.shape = NA) +
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
             legend.position = "none", axis.title.x = ggplot2::element_blank(),
-            plot.margin = ggplot2::margin(2,2,10,80)) +
+            plot.margin = ggplot2::margin(2,2,10,80))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))
@@ -105,7 +105,7 @@ count.violin <- function(countsTable, metadata, identifier1 = "sample", identifi
           ggplot2::ggtitle("Read Distribution per Sample") +
           ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                          legend.position = "none", axis.title.x = ggplot2::element_blank(),
-                         plot.margin = ggplot2::margin(2, 2, 10, 80)) +
+                         plot.margin = ggplot2::margin(2, 2, 10, 80))
         print(p)  #plots
         if (save) {
           grDevices::dev.copy(pdf, "Read_Distribution_per_sample.pdf", height = 8, width = nrow(metadata))
