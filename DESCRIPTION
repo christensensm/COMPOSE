@@ -1,7 +1,7 @@
 Package: COMPOSE
 Type: Package
 Title: Calculation and Visualization of Phenotypic CRISPR Screens
-Version: 0.1.0
+Version: 0.2.0
 Author: Stephen M. Christensen <smchrist189@gmail.com> [aut, cre]
 Maintainer: Stephen M. Christensen <smchrist189@gmail.com>
 Description: This package allows the user to take data from a phenotypic CRISPR screen and perform various QC analysis followed by a basic scoring method for guide RNAs. Downstream analyses can then be performed using gene-level data for pathway analyses, etc.

@@ -19,6 +19,8 @@ calc.DESeq2.L2FC(countsTable, metadata, meta.idnum = NULL,
 \item{p.cutoff}{numeric - specified p-value cut-off}
 
 \item{save}{logical - do you want to save the fold-change table to csv}
+
+\item{verbose}{TRUE/FALSE}
 }
 \value{
 matrix containing Log2 fold-changes for each comparison

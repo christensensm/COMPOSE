@@ -42,6 +42,7 @@ fgsea.enrich <- function(CSS, geneset, genome.db = Org.Hs.eg.db, gene.ids = "SYM
     topPathwaysUp <- fgseaRes[fgseaRes$ES > 0, ]$pathway[1:top]
     topPathwaysDown <- fgseaRes[fgseaRes$ES < 0, ]$pathway[1:top]
     topPathways <- c(topPathwaysUp, rev(topPathwaysDown))
+    grid::grid.newpage()
     fgsea::plotGseaTable(geneset[topPathways], test, fgseaRes, gseaParam = 0.5)
     if (collapsepath) {
         collapsedPathways <- fgsea::collapsePathways(fgseaRes[order(pval)][padj < p.value], geneset, test)

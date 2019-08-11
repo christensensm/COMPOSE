@@ -133,6 +133,6 @@ guides2genes <- function(L2FC, neg.controls, essential.genes, save.plots = FALSE
     print(p3)
     gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100), margins=c(10,10), srtCol = 45)
   }
-  cat("Done!")
+  cat("Done!","\n")
   return(genescore)
 }

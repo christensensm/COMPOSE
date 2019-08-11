@@ -1,12 +1,15 @@
-#' Upset plot for gene score results
+#' Conduct: Single-function processing of CRISPR screen data
 #'
-#' Visualization of gene scores and overlaps
+#' This function ties together all the basics of the COMPOSE package to give you a one-stop shop for processing data.
+#'
+#' The required arguments to run the simplest analysis include counts, metadata, meta.idnum,
+#' essential.genes, and neg.controls (if pathway.analysis = F).
 #'
 #' @param counts input matrix containing normalized gRNA counts with gRNA ids as row names
 #' @param metadata input dataframe containing sample names and other identifiers or data including batch, treatments, etc.
 #' @param sample.id string identifying column name in metadata containing sample IDs
-#' @param print logical - do you want to print the  plot to plots
-#' @param save logical - save the  plot to pdf
+#' @param save.plot logical - save the plot to pdf or print to screen (default saves everything to one pdf)
+#' @param save.table logical - save the tables (default saves everything)
 #' @param identifier1 string identifying column name of metadata with which to adjust color in PCA plot
 #' @param identifier2 string identifying column name of metadata with which to adjust size in PCA plot
 #' @param identifier3 string identifying column name of metadata with which to adjust shape in PCA plot
@@ -36,58 +39,67 @@
 
 
 # Create function to plot volcano plot visualizing sgRNA fold-changes and p-values
-conduct <- function(counts = NULL, metadata = NULL, sample.id = "SampleID", print = T, save = F,
+conduct <- function(counts = NULL, metadata = NULL, sample.id = "SampleID", save.plot = T, save.table = T,
                     identifier1 = NULL, identifier2 = NULL, identifier3 = NULL, batch = F, batch.id = NULL,
-                    transform = T, thresh = 1, minsample.ids = 2,
+                    transform = T, cpm = T, thresh = 1, minsample.ids = 2,
                     meta.idnum = NULL,
                     cutoff = 0.5, sig.cutoff = 0.05, verbose = T,
                     top.labels = 30, neg.controls = NULL, essential.genes = NULL, split = "_",
                     list.return = T, pathway.analysis = F, gene.db = NULL) {
-  grDevices::pdf(paste0("orchestra_",Sys.Date(),".pdf"))
+  if(save.plot)
+    grDevices::pdf(paste0("COMPOSE_conduct_",Sys.Date(),".pdf"), width = max(8,ncol(counts)/2))
   #Plot sequencing depth per sample
-  COMPOSE::calc.seq.depth(counts, metadata, sample.id = sample.id, print = print, save = save)
+  if(verbose)
+    print("Plotting sequencing depth, read distribution, PCAs, and heatmaps")
+  COMPOSE::calc.seq.depth(counts, metadata, sample.id = sample.id)
 
   #Violin plot visualizing read distribution
   COMPOSE::count.violin(counts, metadata, identifier1 = identifier1,
-               identifier2=identifier2, transform = transform, save = save)
+               identifier2=identifier2, transform = transform, cpm = cpm)
 
   #Compute principal components and plot with pearson correlation
   COMPOSE::count.pca(counts, metadata, identifier1=identifier1,
             identifier2=identifier2, identifier3=identifier3, batch = batch,
-            batch.id = batch.id, save = save)
-
+            batch.id = batch.id)
+  if(verbose)
+    print("Filtering counts")
   counts.filtered <- COMPOSE::filterCounts(counts, thresh = thresh, minsample.ids = minsample.ids)
 
   results <- COMPOSE::calc.DESeq2.L2FC(counts.filtered, metadata = metadata, meta.idnum = meta.idnum,
                               include.batch = batch,
-                              p.cutoff = sig.cutoff, save = save, verbose = verbose)
-
-  COMPOSE::plot_sigguides(results, print = print, cutoff = cutoff, sig.cutoff = sig.cutoff, save = save)
-  for(i in 1:ncol(results)){
-    COMPOSE::plot_volcano(results, print = print, save = save, contrast = i, top = top.labels)
+                              p.cutoff = sig.cutoff, save = save.table, verbose = verbose)
+  if(verbose)
+    print("Plotting guide results")
+  COMPOSE::plot_sigguides(results, cutoff = cutoff, sig.cutoff = sig.cutoff)
+  for(i in 1:ncol(results$L2FC)){
+    COMPOSE::plot_volcano(results, contrast = i, top = top.labels)
   }
-
+  if(verbose)
+    print("Calculating gene scores and plotting results")
   genescore <- COMPOSE::guides2genes(results$L2FC, neg.controls = neg.controls, essential.genes = essential.genes,
-                            save.plots = save, save.tables = save, print.plots = print, split = split)
+                            save.tables = save.table, split = split)
 
-  COMPOSE::L2FC.violin(genescore, input = 'Gene Scores', variable = colnames(metadata)[meta.idnum[3]],
-              save.plot = save, print.plot = print)
+  COMPOSE::L2FC.violin(genescore, input = 'Gene Scores', variable = colnames(metadata)[meta.idnum[3]])
 
-  intersections <- COMPOSE::plot_upset(genescore, list.return = list.return, save = save, cutoff = cutoff)
+  intersections <- COMPOSE::plot_upset(genescore, list.return = list.return, cutoff = cutoff)
 
-  dev.off()
+  if(save.plot)
+    dev.off()
   if(pathway.analysis){
-    library(gene.db)
-    pdf('pathway.analyses',Sys.Date(),'.pdf')
+    if(verbose)
+      print("Running Reactome pathway analyses")
+    if(save.plot)
+      pdf(paste0('pathway.analyses',Sys.Date(),'.pdf'), width = 12, height = 8)
     COMPOSE::reactomepa.enrich(genescore[!rownames(genescore) %in% essential.genes,],
                                genome.db = gene.db, showCategory = top.labels,
-                               cutoff = cutoff, pvalue = sig.cutoff, save = save)
+                               cutoff = cutoff, pvalue = sig.cutoff, save.table = save.table)
     for(i in 1:ncol(genescore)){
       COMPOSE::reactomepa.enrich(genescore[!rownames(genescore) %in% essential.genes,i,drop=FALSE],
                                  genome.db = gene.db, showCategory = top.labels,
-                                 cutoff = cutoff, pvalue = sig.cutoff, save = save)
+                                 cutoff = cutoff, pvalue = sig.cutoff, save.table = save.table)
     }
-    dev.off()
+    if(save.plot)
+      dev.off()
   }
   results$genescore <- genescore
   return(results)

@@ -10,6 +10,7 @@
 #' @param metric defines whether to look for enrichment based on a gene list of differentially expressed genes defined by a 'cutoff' (default) or by 'gsea' (one sample or fully combined samples only)
 #' @param cutoff numeric cutoff to define differential expression (default = 1)
 #' @param save logical: saves plots to pdf
+#' @param save.table logical: saves tables of enriched pathways
 #' @param showCategory number of categories to display
 #' @param font.size font size of labels in dotplot and barplot
 #' @return list of (1) output from ReactomePA enrichment tests and (2) readable output
@@ -28,7 +29,7 @@
 #' @importFrom enrichplot dotplot emapplot cnetplot
 
 reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, combine = FALSE, combine.by = NULL, metric = "cutoff",
-    cutoff = 1, save = FALSE, showCategory = 15, font.size = 8) {
+    cutoff = 1, save = FALSE, save.table = FALSE, showCategory = 15, font.size = 8) {
   if (save)
     grDevices::pdf("ReactomePA_output.pdf", height = 8, width = 12)
   CSS <- id.convert(CSS, genome.db = genome.db, gene.ids = "ENTREZID")
@@ -96,6 +97,9 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
   res <- list(raw = CSS, output = x, readable = as.data.frame(x))
   if (save)
     grDevices::dev.off()
+  save.name <- ifelse(combine==T, 'combined', colnames(CSS)[1])
+  if (save.table)
+    write.csv(res$readable, paste0("reactomePA_enrichlist_",save.name,".csv"))
   return(res)
 }
 

@@ -8,6 +8,7 @@
 #' @param include.batch logical to include replicates in the model
 #' @param p.cutoff numeric - specified p-value cut-off
 #' @param save logical - do you want to save the fold-change table to csv
+#' @param verbose TRUE/FALSE
 #' @return matrix containing Log2 fold-changes for each comparison
 #' @export
 #' @examples

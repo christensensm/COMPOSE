@@ -6,7 +6,8 @@
 \usage{
 reactomepa.enrich(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05,
   combine = FALSE, combine.by = NULL, metric = "cutoff",
-  cutoff = 1, save = FALSE, showCategory = 15, font.size = 8)
+  cutoff = 1, save = FALSE, save.table = FALSE, showCategory = 15,
+  font.size = 8)
 }
 \arguments{
 \item{CSS}{output CRISPR screen score matrix from create.CSS()}
@@ -24,6 +25,8 @@ reactomepa.enrich(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05,
 \item{cutoff}{numeric cutoff to define differential expression (default = 1)}
 
 \item{save}{logical: saves plots to pdf}
+
+\item{save.table}{logical: saves tables of enriched pathways}
 
 \item{showCategory}{number of categories to display}
 

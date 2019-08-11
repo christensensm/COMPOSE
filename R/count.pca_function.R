@@ -69,7 +69,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
@@ -78,7 +78,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
@@ -87,7 +87,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id, shape = shape.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::scale_shape_manual(name = identifier3, values = unique(shapes[as.numeric(shape.id)]), labels = levels(shape.id)) +
           ggplot2::ggtitle("PC2 vs PC3") +
           ggplot2::theme_bw() +
@@ -99,7 +99,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         print(p2)
         print(p3)
         gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                          margins=c(10,10), srtCol = 45)
         if (save) {
           grDevices::pdf("PCA_PC1vPC2_normalized_counts.pdf", width = 8, height = 8)
           print(p1)
@@ -112,7 +112,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
           gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                            margins=c(10,10), srtCol = 45)
           grDevices::dev.off()
         }
     }
@@ -123,7 +123,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p1 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 2)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::ggtitle("PC1 vs PC2") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
@@ -131,7 +131,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p2 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(1, 3)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::ggtitle("PC1 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
@@ -139,7 +139,7 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
         p3 <- ggbiplot::ggbiplot(df.pca, pc.biplot = TRUE, var.axes = FALSE, choices = c(2, 3)) +
           ggplot2::geom_point(ggplot2::aes(fill = fill.id, size = size.id)) +
           ggplot2::scale_fill_manual(name = identifier1, values = fillcol, labels = levels(fill.id), guide = ggplot2::guide_legend(override.aes = list(shape = 21))) +
-          ggplot2::scale_size_manual(name = identifier2, values = seq(0, 4, 1/length(levels(size.id)))[-1], labels = levels(size.id)) +
+          ggplot2::scale_size_manual(name = identifier2, values = seq(4,2+(2*length(levels(size.id))),2), labels = levels(size.id)) +
           ggplot2::ggtitle("PC2 vs PC3") +
           ggplot2::theme_bw() +
           ggplot2::theme(aspect.ratio = 1)
@@ -158,14 +158,14 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
           gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                            margins=c(10,10), srtCol = 45)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
         gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                          margins=c(10,10), srtCol = 45)
     }
     if (is.null(identifier2) & !is.null(identifier3)) {
         fill.id <- factor(metadata[, identifier1.col], levels = unique(metadata[, identifier1.col]))
@@ -209,14 +209,14 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
           gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                            margins=c(10,10), srtCol = 45)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
         gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                          margins=c(10,10), srtCol = 45)
     }
     if (is.null(identifier2) & is.null(identifier3)) {
         # Plot PC1 vs PC2
@@ -255,14 +255,14 @@ count.pca <- function(countsTable, metadata, identifier1 = NULL, identifier2 = N
           grDevices::dev.off()
           grDevices::pdf("Pearson_cor_normalized_counts.pdf", width = 8, height = 8)
           gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                            margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                            margins=c(10,10), srtCol = 45)
           grDevices::dev.off()
         }
         print(p1)
         print(p2)
         print(p3)
         gplots::heatmap.2(datcor, trace = 'none', col = viridis::viridis(100),
-                          margins=c(10,10), srtCol = 45, cexRow = 1, cexCol = 1)
+                          margins=c(10,10), srtCol = 45)
     }
 }
 

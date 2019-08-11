@@ -2,12 +2,13 @@
 % Please edit documentation in R/conduct.R
 \name{conduct}
 \alias{conduct}
-\title{Upset plot for gene score results}
+\title{Conduct: Single-function processing of CRISPR screen data}
 \usage{
 conduct(counts = NULL, metadata = NULL, sample.id = "SampleID",
-  print = T, save = F, identifier1 = NULL, identifier2 = NULL,
-  identifier3 = NULL, batch = F, batch.id = NULL, transform = T,
-  thresh = 1, minsample.ids = 2, meta.idnum = NULL, cutoff = 0.5,
+  save.plot = T, save.table = T, identifier1 = NULL,
+  identifier2 = NULL, identifier3 = NULL, batch = F,
+  batch.id = NULL, transform = T, cpm = T, thresh = 1,
+  minsample.ids = 2, meta.idnum = NULL, cutoff = 0.5,
   sig.cutoff = 0.05, verbose = T, top.labels = 30,
   neg.controls = NULL, essential.genes = NULL, split = "_",
   list.return = T, pathway.analysis = F, gene.db = NULL)
@@ -19,9 +20,9 @@ conduct(counts = NULL, metadata = NULL, sample.id = "SampleID",
 
 \item{sample.id}{string identifying column name in metadata containing sample IDs}
 
-\item{print}{logical - do you want to print the  plot to plots}
+\item{save.plot}{logical - save the plot to pdf or print to screen (default saves everything to one pdf)}
 
-\item{save}{logical - save the  plot to pdf}
+\item{save.table}{logical - save the tables (default saves everything)}
 
 \item{identifier1}{string identifying column name of metadata with which to adjust color in PCA plot}
 
@@ -34,6 +35,8 @@ conduct(counts = NULL, metadata = NULL, sample.id = "SampleID",
 \item{batch.id}{numerical - column of metadata that identifies the batch effect to remove}
 
 \item{transform}{logical - do you want to log10 transform the counts}
+
+\item{cpm}{logical - do you want to normalize the counts by sequencing depth}
 
 \item{thresh}{numerical cutoff for low counts}
 
@@ -60,11 +63,13 @@ conduct(counts = NULL, metadata = NULL, sample.id = "SampleID",
 \item{pathway.analysis}{(TRUE/FALSE) continue with pathway analysis for all contrasts}
 
 \item{gene.db}{genome database from which to convert gene symbols to other ids}
-
-\item{cpm}{logical - do you want to normalize the counts by sequencing depth}
 }
 \description{
-Visualization of gene scores and overlaps
+This function ties together all the basics of the COMPOSE package to give you a one-stop shop for processing data.
+}
+\details{
+The required arguments to run the simplest analysis include counts, metadata, meta.idnum,
+essential.genes, and neg.controls (if pathway.analysis = F).
 }
 \examples{
 
