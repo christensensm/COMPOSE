@@ -43,10 +43,11 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 x <- ReactomePA::enrichPathway(names(test), pvalueCutoff = pvalue, readable = T)
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
-                print(enrichplot::emapplot(x))
                 print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
                         scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test)))))
+                x2 <- enrichplot::pairwise_termsim(x)
+                print(enrichplot::emapplot(x2))
             }
             if (!is.null(combine.by)) {
                 test <- list()
@@ -80,7 +81,7 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
                         scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test)))))
-                x2 <- pairwise_termsim(x)
+                x2 <- enrichplot::pairwise_termsim(x)
                 print(enrichplot::emapplot(x2))
 
             }
@@ -94,7 +95,8 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
     x <- ReactomePA::gsePathway(test, nPerm = 10000, pvalueCutoff = pvalue, pAdjustMethod = "BH", verbose = FALSE)
     res <- as.data.frame(x)
     if (nrow(res) > 0)
-      print(enrichplot::emapplot(x, color = "pvalue"))
+      x2 <- enrichplot::pairwise_termsim(x)
+      print(enrichplot::emapplot(x2, color = "pvalue"))
   }
   res <- list(raw = CSS, output = x, readable = as.data.frame(x))
   if (save)
