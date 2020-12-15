@@ -9,7 +9,7 @@ Install dependencies and the package via the following:
 
 ```
 install.packages("BiocManager")
-BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR'))
+BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR','qusage'))
 library(devtools)
 install_github("vqv/ggbiplot")
 install_github("christensensm/COMPOSE")
