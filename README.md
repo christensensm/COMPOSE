@@ -12,8 +12,8 @@ install.packages("BiocManager")
 BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR','qusage'))
 library(devtools)
 install_github("vqv/ggbiplot")
-install_github("christensensm/COMPOSE")
 install_github("YuLab-SMU/DOSE")
 install_github("GuangchuangYu/enrichplot")
+install_github("christensensm/COMPOSE")
 ```
 
