@@ -43,12 +43,12 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 x <- ReactomePA::enrichPathway(names(test), pvalueCutoff = pvalue, readable = T)
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
-                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
+                print(enrichplot::cnetplot.enrichResult(x, categorySize = "pvalue", foldChange = test) +
                         scale_color_gradient2(low = 'blue', high = 'red', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test))), 
                                               cex_label_category = cex_label_category, cex_label_gene = cex_label_gene))
                 x2 <- enrichplot::pairwise_termsim(x)
-                print(enrichplot::emapplot(x2, cex_label_category = cex_label_category))
+                print(enrichplot::emapplot.enrichResult(x2, cex_label_category = cex_label_category))
             }
             if (!is.null(combine.by)) {
                 test <- list()
@@ -79,12 +79,12 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 x <- ReactomePA::enrichPathway(names(test), pvalueCutoff = pvalue, readable = T)
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
-                print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
+                print(enrichplot::cnetplot.enrichResult(x, categorySize = "pvalue", foldChange = test) +
                         scale_color_gradient2(low = 'blue', high = 'red', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test))), 
                                               cex_label_category = cex_label_category, cex_label_gene = cex_label_gene))
                 x2 <- enrichplot::pairwise_termsim(x)
-                print(enrichplot::emapplot(x2, cex_label_category = cex_label_category))
+                print(enrichplot::emapplot.enrichResult(x2, cex_label_category = cex_label_category))
             }
         }
     }
@@ -97,7 +97,7 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
     res <- as.data.frame(x)
     if (nrow(res) > 0)
       x2 <- enrichplot::pairwise_termsim(x)
-      print(enrichplot::emapplot(x2, color = "pvalue", cex_label_category = cex_label_category))
+      print(enrichplot::emapplot.enrichResult(x2, color = "pvalue", cex_label_category = cex_label_category))
   }
   res <- list(raw = CSS, output = x, readable = as.data.frame(x))
   if (save)
