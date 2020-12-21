@@ -13,9 +13,7 @@ BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2'
 library(devtools)
 install_github("vqv/ggbiplot")
 install_github("christensensm/COMPOSE")
+install_github("YuLab-SMU/DOSE")
+install_github("GuangchuangYu/enrichplot")
 ```
 
-
-## Acknowledgments
-
-* Coming soon
