@@ -4,14 +4,33 @@
 \alias{conduct}
 \title{Conduct: Single-function processing of CRISPR screen data}
 \usage{
-conduct(counts = NULL, metadata = NULL, sample.id = "SampleID",
-  save.plot = T, save.table = T, identifier1 = NULL,
-  identifier2 = NULL, identifier3 = NULL, batch = F,
-  batch.id = NULL, transform = T, cpm = T, thresh = 1,
-  minsample.ids = 2, meta.idnum = NULL, cutoff = 0.5,
-  sig.cutoff = 0.05, verbose = T, top.labels = 30,
-  neg.controls = NULL, essential.genes = NULL, split = "_",
-  list.return = T, pathway.analysis = F, gene.db = NULL)
+conduct(
+  counts = NULL,
+  metadata = NULL,
+  sample.id = "SampleID",
+  save.plot = T,
+  save.table = T,
+  identifier1 = NULL,
+  identifier2 = NULL,
+  identifier3 = NULL,
+  batch = F,
+  batch.id = NULL,
+  transform = T,
+  cpm = T,
+  thresh = 1,
+  minsample.ids = 2,
+  meta.idnum = NULL,
+  cutoff = 0.5,
+  sig.cutoff = 0.05,
+  verbose = T,
+  top.labels = 30,
+  neg.controls = NULL,
+  essential.genes = NULL,
+  split = "_",
+  list.return = T,
+  pathway.analysis = F,
+  gene.db = NULL
+)
 }
 \arguments{
 \item{counts}{input matrix containing normalized gRNA counts with gRNA ids as row names}

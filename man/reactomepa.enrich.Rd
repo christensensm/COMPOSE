@@ -4,10 +4,19 @@
 \alias{reactomepa.enrich}
 \title{Reactome pathway analysis}
 \usage{
-reactomepa.enrich(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05,
-  combine = FALSE, combine.by = NULL, metric = "cutoff",
-  cutoff = 1, save = FALSE, save.table = FALSE, showCategory = 15,
-  font.size = 8)
+reactomepa.enrich(
+  CSS,
+  genome.db = org.Hs.eg.db,
+  pvalue = 0.05,
+  combine = FALSE,
+  combine.by = NULL,
+  metric = "cutoff",
+  cutoff = 1,
+  save = FALSE,
+  save.table = FALSE,
+  showCategory = 15,
+  font.size = 8
+)
 }
 \arguments{
 \item{CSS}{output CRISPR screen score matrix from create.CSS()}

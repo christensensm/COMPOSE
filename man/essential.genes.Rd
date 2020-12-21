@@ -4,7 +4,9 @@
 \name{essential.genes}
 \alias{essential.genes}
 \title{Genes determined to be essential for cell fitness by Hart T et al. Cell (2015)}
-\format{A character vector of gene names}
+\format{
+A character vector of gene names
+}
 \source{
 \url{https://www.cell.com/abstract/S0092-8674(15)01495-6}
 }

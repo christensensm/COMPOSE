@@ -4,8 +4,14 @@
 \alias{gage.enrich}
 \title{gage Geneset Enrichment Test}
 \usage{
-gage.enrich(CSS, geneset, genome.db = org.Hs.eg.db,
-  gene.ids = "SYMBOL", species = "hsa", database = NULL)
+gage.enrich(
+  CSS,
+  geneset,
+  genome.db = org.Hs.eg.db,
+  gene.ids = "SYMBOL",
+  species = "hsa",
+  database = NULL
+)
 }
 \arguments{
 \item{CSS}{output CRISPR screen score matrix from create.CSS()}

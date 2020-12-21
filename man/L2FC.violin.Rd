@@ -4,8 +4,13 @@
 \alias{L2FC.violin}
 \title{Log2 Fold-Change Distribution}
 \usage{
-L2FC.violin(L2FC, input = "L2FC", variable = "time", save.plot = F,
-  print.plot = T)
+L2FC.violin(
+  L2FC,
+  input = "L2FC",
+  variable = "time",
+  save.plot = F,
+  print.plot = T
+)
 }
 \arguments{
 \item{L2FC}{input matrix containing log2 fold-change values}

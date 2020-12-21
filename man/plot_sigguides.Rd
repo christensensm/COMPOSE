@@ -4,8 +4,7 @@
 \alias{plot_sigguides}
 \title{Bidirectional barplot for sgRNA fold-change results}
 \usage{
-plot_sigguides(results, print = T, save = F, sig.cutoff = 0.05,
-  cutoff = 1)
+plot_sigguides(results, print = T, save = F, sig.cutoff = 0.05, cutoff = 1)
 }
 \arguments{
 \item{results}{a calc.DESeq2.L2FC object}

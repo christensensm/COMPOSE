@@ -26,7 +26,7 @@
 #' @importFrom clusterProfiler compareCluster
 #' @import grDevices
 #' @importFrom stats na.omit
-#' @importFrom enrichplot dotplot emapplot cnetplot
+#' @importFrom enrichplot dotplot emapplot cnetplot pairwise_termsim
 
 reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, combine = FALSE, combine.by = NULL, metric = "cutoff",
     cutoff = 1, save = FALSE, save.table = FALSE, showCategory = 15, font.size = 8) {
@@ -44,7 +44,7 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
-                        scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
+                        scale_color_gradient2(low = 'blue', high = 'red', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test)))))
                 x2 <- enrichplot::pairwise_termsim(x)
                 print(enrichplot::emapplot(x2))
@@ -79,11 +79,10 @@ reactomepa.enrich <- function(CSS, genome.db = org.Hs.eg.db, pvalue = 0.05, comb
                 print(barplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::dotplot(x, showCategory = showCategory, font.size = font.size))
                 print(enrichplot::cnetplot(x, categorySize = "pvalue", foldChange = test) +
-                        scale_color_gradient2(low = 'red', high = 'green', mid = 'white',
+                        scale_color_gradient2(low = 'blue', high = 'red', mid = 'white',
                                               limits = c(-max(abs(test)),max(abs(test)))))
                 x2 <- enrichplot::pairwise_termsim(x)
                 print(enrichplot::emapplot(x2))
-
             }
         }
     }

@@ -4,8 +4,13 @@
 \alias{calc.seq.depth}
 \title{Sequencing depth}
 \usage{
-calc.seq.depth(countsTable, metadata, sample.id = "SampleID",
-  print = T, save = F)
+calc.seq.depth(
+  countsTable,
+  metadata,
+  sample.id = "SampleID",
+  print = T,
+  save = F
+)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}

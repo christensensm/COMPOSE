@@ -4,8 +4,15 @@
 \alias{count.violin}
 \title{Count Distribution}
 \usage{
-count.violin(countsTable, metadata, identifier1 = "sample",
-  identifier2 = NULL, transform = FALSE, cpm = FALSE, save = F)
+count.violin(
+  countsTable,
+  metadata,
+  identifier1 = "sample",
+  identifier2 = NULL,
+  transform = FALSE,
+  cpm = FALSE,
+  save = F
+)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}

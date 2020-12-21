@@ -4,8 +4,15 @@
 \alias{guides2genes}
 \title{CRISPR Screen Scoring}
 \usage{
-guides2genes(L2FC, neg.controls, essential.genes, save.plots = FALSE,
-  print.plots = TRUE, save.tables = FALSE, split = "_")
+guides2genes(
+  L2FC,
+  neg.controls,
+  essential.genes,
+  save.plots = FALSE,
+  print.plots = TRUE,
+  save.tables = FALSE,
+  split = "_"
+)
 }
 \arguments{
 \item{L2FC}{input matrix containing log2 fold-change data with gRNA ids as row names}

@@ -4,8 +4,15 @@
 \alias{calc.DESeq2.L2FC}
 \title{Fold-change calculation for CRISPR screen}
 \usage{
-calc.DESeq2.L2FC(countsTable, metadata, meta.idnum = NULL,
-  include.batch = F, p.cutoff = 0.05, save = F, verbose = T)
+calc.DESeq2.L2FC(
+  countsTable,
+  metadata,
+  meta.idnum = NULL,
+  include.batch = F,
+  p.cutoff = 0.05,
+  save = F,
+  verbose = T
+)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}

@@ -4,8 +4,14 @@
 \alias{plot_volcano}
 \title{Volcano plot for sgRNA fold-change results}
 \usage{
-plot_volcano(results, print = T, save = F, sig.cutoff = 0.05,
-  contrast = NULL, top = NULL)
+plot_volcano(
+  results,
+  print = T,
+  save = F,
+  sig.cutoff = 0.05,
+  contrast = NULL,
+  top = NULL
+)
 }
 \arguments{
 \item{results}{a calc.DESeq2.L2FC object}

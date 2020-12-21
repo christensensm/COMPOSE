@@ -4,8 +4,12 @@
 \alias{id.convert}
 \title{ID converter}
 \usage{
-id.convert(CSS, genome.db = Org.Hs.eg.db, gene.ids = "ENTREZID",
-  keytype = "SYMBOL")
+id.convert(
+  CSS,
+  genome.db = Org.Hs.eg.db,
+  gene.ids = "ENTREZID",
+  keytype = "SYMBOL"
+)
 }
 \arguments{
 \item{CSS}{output CRISPR screen score matrix from create.CSS()}

@@ -4,9 +4,18 @@
 \alias{fgsea.enrich}
 \title{FGSEA utility}
 \usage{
-fgsea.enrich(CSS, geneset, genome.db = Org.Hs.eg.db,
-  gene.ids = "SYMBOL", p.value = 0.05, minSize = 15, maxSize = 500,
-  nperm = 10000, top = 10, collapsepath = FALSE)
+fgsea.enrich(
+  CSS,
+  geneset,
+  genome.db = Org.Hs.eg.db,
+  gene.ids = "SYMBOL",
+  p.value = 0.05,
+  minSize = 15,
+  maxSize = 500,
+  nperm = 10000,
+  top = 10,
+  collapsepath = FALSE
+)
 }
 \arguments{
 \item{CSS}{output CRISPR screen score matrix from create.CSS()}

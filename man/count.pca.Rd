@@ -4,9 +4,16 @@
 \alias{count.pca}
 \title{PCA and Pearson correlation plots from counts table}
 \usage{
-count.pca(countsTable, metadata, identifier1 = NULL,
-  identifier2 = NULL, identifier3 = NULL, batch = FALSE,
-  batch.id = NULL, save = F)
+count.pca(
+  countsTable,
+  metadata,
+  identifier1 = NULL,
+  identifier2 = NULL,
+  identifier3 = NULL,
+  batch = FALSE,
+  batch.id = NULL,
+  save = F
+)
 }
 \arguments{
 \item{countsTable}{input matrix containing normalized gRNA counts with gRNA ids as row names}
