@@ -9,11 +9,12 @@ Install dependencies and the package via the following:
 
 ```
 install.packages("BiocManager")
-BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR','qusage'))
+BiocManager::install(c('BiocParallel','AnnotationDbi','clusterProfiler','DESeq2','fgsea','gage','pathview','ReactomePA','limma','edgeR','qusage','RBGL'))
 library(devtools)
 install_github("vqv/ggbiplot")
 install_github("YuLab-SMU/DOSE")
 install_github("GuangchuangYu/enrichplot")
+install_github("js229/Vennerable")
 install_github("christensensm/COMPOSE")
 ```
 
