@@ -15,7 +15,9 @@ reactomepa.enrich(
   save = FALSE,
   save.table = FALSE,
   showCategory = 15,
-  font.size = 8
+  font.size = 8,
+  cex_label_category = 1,
+  cex_label_gene = 1
 )
 }
 \arguments{
